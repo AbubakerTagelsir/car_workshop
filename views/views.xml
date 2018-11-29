@@ -1,28 +1,150 @@
 <odoo>
   <data>
+
+    <record model="ir.actions.act_window" id="invoice.action_window">
+      <field name="name">invoice window</field>
+      <field name="res_model">accounts.invoice</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
     <!-- explicit list view definition -->
-    <!--
+    
     <record model="ir.ui.view" id="contract.list">
-      <field name="name">contract list</field>
+      <field name="name">contract form</field>
       <field name="model">contract.contract</field>
       <field name="arch" type="xml">
         <tree>
           <field name="name"/>
-          <field name="value"/>
-          <field name="value2"/>
+          <field name="client"/>
+          <field name="date"/>
         </tree>
       </field>
     </record>
-    -->
+    
 
+ <record id="view_contract_form" model="ir.ui.view">
+      <field name="name">view.contract.form</field>
+      <field name="model">contract.contract</field>
+      <field name="type">form</field>
+      <field name="mode">primary</field>
+      <field name="active" eval="True" />
+      <field name="arch" type="xml">
+          <form string="contract_form" create="1" delete="1" edit="1">
+              <header>
+              <field name="name"/>
+              
+              
+              <!-- <field name="state" invisible="1" widget="statusbar"/> -->
+              
+              <!-- <button name="publish_order" string="Publish" type="object" class="oe_highlight"
+                
+                attrs="{ 'invisible':[('state', '!=', 'draft')] }"
+                /> -->
+              
+              <!-- <button name="cancel_order" string="Cancel" type="object" class="oe_highlight"
+                
+                attrs="{ 'invisible':[('state', 'not in', ['available'])] }"
+                /> -->
+              
+              <button name="%(invoice.action_window)d"
+                      string="Invoices"
+                      type="action"
+                      default_focus="0"
+                      class="oe_highlight"            
+                      help="Meh"
+                      /> 
+                      
+                     
+             </header>
+
+              <sheet>
+                
+                                    
+                 <group>
+                  
+                  <field name="date" readonly="1"/>
+                  <field name="user_id" readonly="1"/>
+                  <field name="payment_method" />
+                  <field name="delivery" />
+                  <field name="pickup_location" 
+                  attrs="{ 'invisible':[('delivery', '=', True)] }"
+                  />
+
+                  </group>
+                  <field name="items" widget="one2many_list">
+                    <tree editable="bottom">
+                      
+                      <field name="product_id" />
+                      <field name="qty" />
+                      <field name="unit_price" />
+                  
+                    </tree>
+                  </field>
+
+                 
+                    <!-- <div class="oe_title oe_right"> -->
+                      <label for="total_price" class="oe_edit_only" />
+                      <h1>
+                          <field name="total_price" class="oe_inline"
+                              placeholder="Total Price" readonly="1"/>
+                      </h1>
+                  <!-- </div> -->
+                    
+                     <group>
+                      <field name="no_of_payments" />
+
+                      <field name="payment" widget="one2many_list">
+                    <tree editable="bottom">
+                      
+                      <field name="name" />
+                      <field name="percent" />
+                      <field name="amount" />
+                      <field name="status" />
+                      <field name="date" />
+                    </tree>
+                  </field>
+                  </group>
+              </sheet>
+            
+          </form>
+      </field>
+  </record>
+
+
+
+
+
+      <record model="ir.ui.view" id="contract.list">
+      <field name="name">contract form</field>
+      <field name="model">accounts.invoice</field>
+        <field name="inherit_id" ref="account.invoice_tree" />
+      <field name="arch" type="xml">
+        <tree>
+          <field name="" posstion="attributes">
+          <attribute name="invisiable">1</attribute>
+          </field>
+
+
+          <field name="client"/>
+          <field name="date"/>
+        </tree>
+      </field>
+    </record>
+
+   
     <!-- actions opening views on models -->
-    <!--
+    
     <record model="ir.actions.act_window" id="contract.action_window">
       <field name="name">contract window</field>
       <field name="res_model">contract.contract</field>
       <field name="view_mode">tree,form</field>
     </record>
-    -->
+
+    
+
+
+    
+   
 
     <!-- server action to the one above -->
     <!--

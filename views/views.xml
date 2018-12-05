@@ -1,14 +1,6 @@
 <odoo>
   <data>
-
-    <record model="ir.actions.act_window" id="invoice.action_window">
-      <field name="name">invoice window</field>
-      <field name="res_model">accounts.invoice</field>
-      <field name="view_mode">tree,form</field>
-    </record>
-
     <!-- explicit list view definition -->
-
 <record model= "ir.actions.act_window" id="workshop_service_form">
     <field name = "name">workshop service</field>
     <field name = "res_model">fleet.vehicle.log.services</field>
@@ -40,8 +32,6 @@
 
 
 <menuitem name ="car service" id="car_service_menu" action= "workshop_service_form"/>
-
-
 
 
   </data>
